@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1599062613 source:/home/aelaredo/Documents/Proyectos C/TP calculadora/Calculadora.c
+	"Calculadora.h"
+
+1599062310 /home/aelaredo/Documents/Proyectos C/TP calculadora/Calculadora.h
+
+1599068324 source:/home/aelaredo/Documents/Proyectos C/TP calculadora/main.c
+	<stdio.h>
+	<stdlib.h>
+	"Calculadora.h"
+
