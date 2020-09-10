@@ -20,8 +20,9 @@ int main()
     flagCalculos = 0;
 
     do{
-        printf("\nElegi un numero \n 1. Ingrese el primer operando\n 2. Ingrese el segundo operando\n 3. Calcular las operaciones \n 4. Informar resultados de numeros\n 5. Salir\n");
-        scanf("%d", &opcion);
+
+        opcion = PedirEntero("\nElegi un numero \n 1. Ingrese el primer operando\n 2. Ingrese el segundo operando\n 3. Calcular las operaciones \n 4. Informar resultados de numeros\n 5. Salir\n");
+
         switch(opcion)
         {
         case 1:
@@ -61,14 +62,14 @@ int main()
             if(primerOperando < 0 ){
                 printf("\n e) El factorial de %.2f no se púede calcular por ser negativo ", primerOperando);
             }else{
-                printf("\n e) El factorial de la parte entera del numero %.2f \n", primerOperando);
+                printf("\n e) El factorial de la parte entera del numero %.2f ", primerOperando);
                 factorialPrimer = FactorialNumero(primerOperando);
             }
 
              if(segundoOperando < 0 ){
-             printf("\n f) El factorial de %.2f no se puede calcular por que es negativo \n", segundoOperando);
+             printf("\n f) El factorial de %.2f no se puede calcular por que es negativo ", segundoOperando);
             }else {
-                printf("\n e) El factorial de la parte entera del numero %.2f \n", segundoOperando);
+                printf("\n f) El factorial de la parte entera del numero %.2f ", segundoOperando);
                 factorialSegundo = FactorialNumero(segundoOperando);
             }
 
@@ -104,9 +105,9 @@ int main()
             }
 
             if(segundoOperando < 0 ){
-             printf("el factorial de %.2f no se puede calcular por que es negativo \n", segundoOperando);
+             printf("\n f) el factorial de %.2f no se puede calcular por que es negativo ", segundoOperando);
             }else {
-                printf("el factorial de %.2f es %d \n", segundoOperando, factorialSegundo);
+                printf("\n f) el factorial de %.2f es %d \n", segundoOperando, factorialSegundo);
             }
 
         break;

@@ -1,0 +1,3 @@
+int PedirEntero (char[]);
+
+
