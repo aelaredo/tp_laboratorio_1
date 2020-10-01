@@ -1,0 +1,77 @@
+# depslib dependency file v1.0
+1601559486 source:/home/aelaredo/Documents/Proyectos C/TP 2.2/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"ArrayEmployees.h"
+	"Menu.h"
+	<ctype.h>
+	<string.h>
+	"utn_getData.h"
+
+1601559088 /home/aelaredo/Documents/Proyectos C/TP 2.2/ArrayEmployees.h
+
+1601038433 /home/aelaredo/Documents/Proyectos C/TP 2.2/Menu.h
+
+1601323777 source:/home/aelaredo/Documents/Proyectos C/TP 2.2/Menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"Menu.h"
+	"utn_getData.h"
+
+1601319219 source:/home/aelaredo/Documents/Proyectos C/TP 2.2/utn_getData.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"utn_getData.h"
+
+1601320881 /home/aelaredo/Documents/Proyectos C/TP 2.2/utn_getData.h
+
+1601559616 source:/home/aelaredo/Documents/Proyectos C/TP 2.2/ArrayEmployees.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"ArrayEmployees.h"
+	"utn_getData.h"
+
+1601559616 source:/home/aelaredo/Documents/Subir a github/tp_laboratorio_1/TP 2/ArrayEmployees.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"ArrayEmployees.h"
+	"utn_getData.h"
+
+1601560255 /home/aelaredo/Documents/Subir a github/tp_laboratorio_1/TP 2/ArrayEmployees.h
+
+1601320881 /home/aelaredo/Documents/Subir a github/tp_laboratorio_1/TP 2/utn_getData.h
+
+1601323777 source:/home/aelaredo/Documents/Subir a github/tp_laboratorio_1/TP 2/Menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"Menu.h"
+	"utn_getData.h"
+
+1601038433 /home/aelaredo/Documents/Subir a github/tp_laboratorio_1/TP 2/Menu.h
+
+1601319219 source:/home/aelaredo/Documents/Subir a github/tp_laboratorio_1/TP 2/utn_getData.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"utn_getData.h"
+
+1601560255 source:/home/aelaredo/Documents/Subir a github/tp_laboratorio_1/TP 2/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"ArrayEmployees.h"
+	"Menu.h"
+	<ctype.h>
+	<string.h>
+	"utn_getData.h"
+
