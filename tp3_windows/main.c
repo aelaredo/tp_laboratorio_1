@@ -25,17 +25,11 @@
 
 int main()
 {
-	//int i;
-	Employee* aux;
-	Employee* aux2;
-	//int len ;
 	int   menu = 0;
 	LinkedList* miLista;
 	int id;
 	miLista = ll_newLinkedList();
 	id = controller_getNewId(miLista);
-
-
 
 	do{
 			fflush(stdout);

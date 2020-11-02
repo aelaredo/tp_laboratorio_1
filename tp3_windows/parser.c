@@ -33,7 +33,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pLinkedListEmployee)
 				}
 		}
 	}
-		fclose(pFile);
+	fclose(pFile);
 	}
 
     return retorno;
