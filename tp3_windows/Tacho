@@ -1,0 +1,212 @@
+/*
+
+
+		//Crear lista
+
+		int len;
+		////int auxInt;
+		int i;
+		Employee* aux;
+
+
+
+
+
+		len = ll_len(miLista);
+
+		printf("Cantidad de elementos original: %d\n", len);
+
+		for(i=0; i<len; i++)
+			{
+				aux =  (Employee*)ll_get(miLista,i);
+				printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+			}
+
+
+	    len = ll_len(miLista);
+
+
+
+	    printf("Cantidad de elementos: %d\n", len);
+
+	    Employee* e1;
+	    e1 = employee_newParametros("800","Pedroe1","80", "80000");
+
+	    ll_add(miLista, e1);
+
+	    Employee* e2;
+	    e2 = employee_newParametros("600","Josee2","280", "50000");
+
+	    ll_add(miLista, e2);
+
+
+
+	    Employee* e3;
+	    e3 = employee_newParametros("700","Luisae3","50", "150000");
+
+	    ll_add(miLista, e3);
+
+
+	    Employee* e4;
+	    e4 = employee_newParametros("750","Miguele4","240", "57000");
+
+
+	    Employee* e5;
+	    e5 = employee_newParametros("600","Norbertoe5","180", "50000" );
+
+
+		int i;
+		Employee* aux;
+		len = ll_len(miLista);
+
+		printf("Cantidad de elementos original: %d\n", len);
+			for(i=0; i<len; i++)
+			{
+				aux =  ll_get(miLista,i);
+				printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+			}
+
+//sort
+		 	ll_sort(miLista, compareByWorkedHours, 1);
+		 	len = ll_len(miLista);
+		 	printf("Cantidad de elementos original ordenados: %d\n", len);
+		 	for(i=0; i<len; i++)
+		 	{
+		 		aux =  ll_get(miLista,i);
+		 		printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+		 	}
+
+//remove
+		int index;
+
+		index = 2;
+
+		ll_remove(miLista, index-1);
+
+		len = ll_len(miLista);
+		printf("Cantidad de elementos despues de borrar  index 2 (pos 1): %d\n", len);
+		for(i=0; i<len; i++)
+		{
+			aux =  ll_get(miLista,i);
+			printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+		}
+
+
+//SET
+		index = 1;
+	    ll_set(miLista, index-1, e4);
+
+	    len = ll_len(miLista);
+	    printf("Cantidad de elementos despues del setear el e4 en index 1: %d\n", len);
+	 	    for(i=0; i<len; i++)
+	 	    {
+	 	        aux =  ll_get(miLista,i);
+	 	        printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+	 	    }
+
+	    //PUSH
+
+		index = 2;
+
+		ll_push(miLista, index-1, e5);
+
+		len = ll_len(miLista);
+
+		printf("Cantidad de elementos despues de pushear e5 en index 2: %d\n", len);
+
+		for(i=0; i<len; i++)
+		{
+			aux =  ll_get(miLista,i);
+			printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+		}
+
+//POP
+		Employee* auxPop;
+		index = 2;
+
+		auxPop = (Employee*) ll_pop(miLista,index-1);
+
+		printf("Elemento popeado: %d %4d %15s %8d %8d\n", index, auxPop->id, auxPop->nombre, auxPop->horasTrabajadas, auxPop->sueldo);
+
+
+		len = ll_len(miLista);
+		printf("Cantidad de elementos despues de popear el index 2: %d\n", len);
+		for(i=0; i<len; i++)
+		{
+			aux =  ll_get(miLista,i);
+			printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+		}
+
+//INDEXOOF
+
+		auxInt = 1+(ll_indexOf(miLista, e4));
+
+		//////// devuelve -1 si no encuentra el elemento
+		printf("el index del elemento e4 es: %d\n", auxInt);
+
+//ISEMPTY
+
+		auxInt = ll_isEmpty(miLista);
+
+		printf("Esta miLista empty?! %d\n", auxInt);
+
+//Contains
+
+		auxInt = ll_contains(miLista, e1);
+
+		printf("Contains devuelve %d\n", auxInt);
+
+
+//Sublist
+
+
+
+		ll_add(miLista, e2);
+
+
+		ll_add(miLista, e3);
+
+		len = ll_len(miLista);
+
+		LinkedList* miLista2;
+
+		miLista2 = ll_newLinkedList();
+		miLista2= ll_subList(miLista, 1, 2);
+
+		len = ll_len(miLista2);
+
+		for(i=0; i<len; i++)
+				{
+					aux =  ll_get(miLista2,i);
+					printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+				}
+*/
+
+//PRUEBAS DE ARCHIVO BINARIO
+
+/*aux2 = employee_new();
+	aux = employee_newParametros("152", "jere", "250", "250000");
+	FILE* fpArchivo;
+	printf("Datos: %s", aux->nombre);
+	fpArchivo = fopen("prueba.bin", "ab");
+	fwrite(aux,sizeof(Employee),1, fpArchivo);
+	fclose(fpArchivo);
+
+	fpArchivo = fopen("prueba.bin", "rb");
+	while (!feof(fpArchivo))
+	{
+		fread(aux2,sizeof(Employee), 1, fpArchivo);
+		fflush(stdout);
+		printf("\nDatos:%s, %d, %d, %d\n", aux2->nombre, aux2->id, aux2->horasTrabajadas, aux2->sueldo);
+	}
+	fclose(fpArchivo);
+
+
+	//controller_loadFromText("data.csv" , miLista);
+	len = ll_len(miLista);
+	for(i=0; i<len; i++)
+				{
+					aux =  (Employee*)ll_get(miLista,i);
+					printf("%d) %4d %15s %8d %8d\n", i+1, aux->id, aux->nombre, aux->horasTrabajadas, aux->sueldo);
+				}
+	 */
