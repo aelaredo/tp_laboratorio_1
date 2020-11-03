@@ -71,7 +71,7 @@ int main()
 				controller_sortEmployee(miLista);
 				break;
 			case 8:
-				if(controller_saveAsText("datanuevo.csv",miLista) == 1){
+				if(controller_saveAsText("data.csv",miLista) == 1){
 					printf("\nSe guardo en texto con exito\n");
 				}
 				break;
