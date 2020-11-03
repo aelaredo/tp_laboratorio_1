@@ -200,4 +200,6 @@ int employee_showEmpleado(Employee* this);
  */
 int compareById (void* , void*);
 
+int compareByNombre (void* uno, void* dos);
+
 #endif // employee_H_INCLUDED

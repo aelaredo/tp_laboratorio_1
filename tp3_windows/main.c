@@ -66,7 +66,6 @@ int main()
 				break;
 			case 6:
 				controller_ListEmployee(miLista);
-
 				break;
 			case 7:
 				controller_sortEmployee(miLista);

@@ -29,7 +29,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 		}
 	}else
 	{
-		printf("\n Hubo un error al cargar la linked list desde texto");
+		printf("\n Hubo un error al cargar la linked list desde texto\n");
 	}
 
     return retorno;
@@ -77,7 +77,6 @@ int controller_addEmployee(LinkedList* pArrayListEmployee, int id)
 {
 
 	Employee* localEmployee;
-	int flagCheck = 0;
 	char idStr[50];
 	char nombreStr[50];
 	char horasTrabajadasStr[50];
@@ -87,29 +86,36 @@ int controller_addEmployee(LinkedList* pArrayListEmployee, int id)
 
 	sprintf(idStr, "%d", id);
 
-	printf("\nIngrese el nombre");
+	printf("\nIngrese el nombre\n");
 	fflush(stdout);
 	fflush(stdin);
 
-	if(myGets(nombreStr, 20)==0){
-	flagCheck++;
-	}
-
-	if (getNumero(&horasTrabajadas,"\nIngrese las horas trabajadas", "opcion no valida", 1, 100000, 20)==0){
+	if(myGets(nombreStr, 20)==0)
+	{
+		if (getNumero(&horasTrabajadas,"\nIngrese las horas trabajadas: ", "\nopcion no valida\n", 1, 100000, 20)==0)
+		{
 		sprintf(horasTrabajadasStr, "%d", horasTrabajadas);
-		flagCheck++;
+			if (getNumero(&sueldo,"\nIngrese el sueldo: ", "\nopcion no valida\n", 1, 10000000, 20)==0)
+			{
+				sprintf(sueldoStr, "%d", sueldo);
+				localEmployee = employee_newParametros(idStr, nombreStr , horasTrabajadasStr, sueldoStr);
+				ll_add(pArrayListEmployee, localEmployee);
+				retorno = 1;
+			}
+			else
+			{
+				printf("\nHubo un error al setear el sueldo\n");
+			}
+		}
+		else
+		{
+			printf("\nHubo un error al setear las hrs. trabajadas\n");
+		}
+	}else
+	{
+		printf("\nHubo un error al setear el nombre\n");
 	}
 
-	if (getNumero(&sueldo,"\nIngrese el sueldo", "opcion no valida", 1, 10000000, 20)==0){
-		sprintf(sueldoStr, "%d", sueldo);
-		flagCheck++;
-	}
-
-	if (flagCheck == 3){
-	localEmployee = employee_newParametros(idStr, nombreStr , horasTrabajadasStr, sueldoStr);
-	ll_add(pArrayListEmployee, localEmployee);
-	retorno = 1;
-	}
 
 }else if(isEmpty == 1)
 {
@@ -134,7 +140,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 if (pArrayListEmployee != NULL && isEmpty == 0)
 {
 	Employee* localEmployee;
-	int flagCheck = 0;
+	int menu;
 	int idEditar;
 	int indexToEdit;
 	char idStr[50];
@@ -146,47 +152,107 @@ if (pArrayListEmployee != NULL && isEmpty == 0)
 
 	controller_ListEmployee(pArrayListEmployee);
 
-	getNumero(&idEditar,"\nIngrese el ID a ser editado", "Opcion no valida", 1, (controller_getNewId(pArrayListEmployee)-1), 20);
+	getNumero(&idEditar,"\nIngrese el ID a ser editado\n", "\nOpcion no valida\n", 1, (controller_getNewId(pArrayListEmployee)-1), 20);
 	indexToEdit = controller_findIndexOfEmployeeById(pArrayListEmployee, idEditar);
 
 	if (indexToEdit!= -1)
 	{
-		printf("\nIngrese el nombre");
-		fflush(stdout);
-		fflush(stdin);
-
-		if(myGets(nombreStr, 20)==0)
-		{
-		flagCheck++;
-		}
-
-		if (getNumero(&horasTrabajadas,"\nIngrese las horas trabajadas", "opcion no valida", 1, 100000, 20)==0)
-		{
-		sprintf(horasTrabajadasStr, "%d", horasTrabajadas);
-		flagCheck++;
-		}
-
-		if (getNumero(&sueldo,"\nIngrese el sueldo", "opcion no valida", 1, 10000000, 20)==0)
-		{
-		sprintf(sueldoStr, "%d", sueldo);
-		flagCheck++;
-		}
-
-		if (flagCheck==3)
-		{
+		menu = controller_showMenuEdit();
 		sprintf(idStr, "%d", idEditar);
-		localEmployee = employee_newParametros(idStr, nombreStr, horasTrabajadasStr, sueldoStr);
-
-				if (localEmployee !=NULL)
+		switch (menu)
+		{
+			case 1:
+				printf("\nIngrese el nuevo nombre\n");
+				fflush(stdout);
+				fflush(stdin);
+				if(myGets(nombreStr, 20)==0)
 				{
-					ll_set(pArrayListEmployee, indexToEdit, localEmployee);
-					retorno = 1;
+				localEmployee = ll_get(pArrayListEmployee, indexToEdit);
+					if(employee_getHorasTrabajadas(localEmployee,&horasTrabajadas)==1)
+					{
+					sprintf(horasTrabajadasStr, "%d", horasTrabajadas);
+						if(employee_getSueldo(localEmployee,&sueldo)==1)
+						{
+							sprintf(sueldoStr, "%d", sueldo);
+							localEmployee = employee_newParametros(idStr, nombreStr, horasTrabajadasStr, sueldoStr);
+							ll_set(pArrayListEmployee, indexToEdit, localEmployee);
+							retorno = 0;
+						}
+						else
+						{
+							printf("\nHubo un error al setear el sueldo\n");
+						}
+					}else
+					{
+					printf("\nHubo un error al setear las horas trabajadas\n");
+					}
+				}
+				else
+				{
+					printf("\nHubo un error al setear el nuevo nombre\n");
+				}
+			break;
+			case 2:
+				if (getNumero(&horasTrabajadas,"\nIngrese las horas trabajadas\n", "\nopcion no valida\n", 1, 100000, 20)==0)
+				{
+				localEmployee = ll_get(pArrayListEmployee, indexToEdit);
+				sprintf(horasTrabajadasStr, "%d", horasTrabajadas);
+						if (employee_getNombre(localEmployee, nombreStr)==1)
+						{
+							if (employee_getSueldo(localEmployee, &sueldo)==1)
+							{
+								sprintf(sueldoStr, "%d", sueldo);
+								localEmployee = employee_newParametros(idStr, nombreStr, horasTrabajadasStr, sueldoStr);
+								ll_set(pArrayListEmployee, indexToEdit, localEmployee);
+								retorno = 0;
+							}
+							else
+							{
+								printf("\nHubo un error al setear el sueldo\n");
+							}
+						}
+						else
+						{
+							printf("\nHubo un error al setear el nombre\n");
+						}
+				}
+				else
+				{
+					printf("\nHubo un error al setear las horas trabajadas\n");
+				}
+			break;
+			case 3:
+				if (getNumero(&sueldo,"\nIngrese el sueldo\n", "\nopcion no valida\n", 1, 10000000, 20)==0)
+				{
+				localEmployee = ll_get(pArrayListEmployee, indexToEdit);
+				sprintf(sueldoStr, "%d", sueldo);
+					if (employee_getNombre(localEmployee, nombreStr)==1)
+					{
+						if(employee_getHorasTrabajadas(localEmployee,&horasTrabajadas)==1)
+						{
+							sprintf(horasTrabajadasStr, "%d", horasTrabajadas);
+							localEmployee = employee_newParametros(idStr, nombreStr, horasTrabajadasStr, sueldoStr);
+							ll_set(pArrayListEmployee, indexToEdit, localEmployee);
+							retorno = 0;
+						}
+						else
+						{
+							printf("\nHubo un error al setear las horas trabajadas\n");
+						}
+					}
+					else
+					{
+						printf("\nHubo un error al setear el nombre\n");
+					}
+				}
+				else
+				{
+					printf("\nHubo un error al setear el sueldo\n");
 				}
 		}
-
 	}else
 	{
-	printf("\nNo se encuentra el id en la lista de empleados");
+	printf("\nNo se encuentra el id en la lista de empleados\n");
 	}
 
 }else if(isEmpty == 1)
@@ -216,7 +282,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 
 		controller_ListEmployee(pArrayListEmployee);
 
-		if(getNumero(&idToDelete,"\nIngrese el ID a ser borrado", "\nOpcion no valida", 1, (controller_getNewId(pArrayListEmployee)-1), 20)==0)
+		if(getNumero(&idToDelete,"\nIngrese el ID a ser borrado\n", "\nOpcion no valida\n", 1, (controller_getNewId(pArrayListEmployee)-1), 20)==0)
 		{
 			indexToDelete = controller_findIndexOfEmployeeById(pArrayListEmployee, idToDelete);
 			employeeToDelete = ll_get(pArrayListEmployee, indexToDelete);
@@ -288,8 +354,55 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 	int isEmpty = ll_isEmpty(pArrayListEmployee);
 	if (pArrayListEmployee != NULL && isEmpty == 0)
 	{
-		ll_sort(pArrayListEmployee, compareById, 0);
-		retorno = 1;
+		int menu;
+		menu = controller_showMenuSort();
+		switch (menu)
+		{
+			case 1:
+				if(ll_sort(pArrayListEmployee, compareById, 1)==0)
+				{
+					printf("\nSe ordeno la lista exitosamente\n");
+					retorno = 1;
+				}
+				else
+				{
+					printf("\nHubo un error al ordenar la lista\n");
+				}
+				break;
+			case 2:
+				if(ll_sort(pArrayListEmployee, compareById, 0)==0)
+				{
+					printf("\nSe ordeno la lista exitosamente\n");
+					retorno = 1;
+				}
+				else
+				{
+					printf("\nHubo un error al ordenar la lista\n");
+				}
+				break;
+			case 3:
+				if (ll_sort(pArrayListEmployee, compareByNombre, 1)==0)
+				{
+					printf("\nSe ordeno la lista exitosamente\n");
+					retorno = 1;
+				}
+				else
+				{
+					printf("\nHubo un error al ordenar la lista\n");
+				}
+				break;
+			case 4:
+				if(ll_sort(pArrayListEmployee, compareByNombre, 0)==0)
+				{
+					printf("\nSe ordeno la lista exitosamente\n");
+					retorno = 1;
+				}
+				else
+				{
+					printf("\nHubo un error al ordenar la lista\n");
+				}
+				break;
+		}
 	}else if(isEmpty == 1)
 	{
 		printf("\nEl array esta vacio, por favor carguelo desde la opcion 1 o 2\n");
@@ -323,7 +436,6 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 			fpArchivo = fopen(path, "w");
 			if(fpArchivo != NULL)
 			{
-
 				fprintf(fpArchivo,"id,nombre,horasTrabajadas,sueldo\n");
 				for(i=0; i<len; i++)
 				{
@@ -338,9 +450,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 					retorno = 1;
 					}
 				}
-
 			}
-
 	}else if(isEmpty == 1)
 	{
 		printf("\nEl array esta vacio, por favor carguelo desde la opcion 1 o 2\n");
@@ -386,8 +496,6 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 		printf("\nHubo un problema al guardar en binario\n");
 	}
 
-
-
     return retorno;
 }
 
@@ -405,7 +513,7 @@ int controller_getNewId(LinkedList* pArrayListEmployee)
 		LinkedList* miListaOrdenada;
 
 		miListaOrdenada = ll_clone(pArrayListEmployee);
-		controller_sortEmployee(miListaOrdenada);
+		ll_sort(miListaOrdenada, compareById, 0);
 		aux = ll_get(miListaOrdenada, 0);
 		newId = aux->id;
 	}
@@ -425,17 +533,22 @@ int controller_findIndexOfEmployeeById(LinkedList* pArrayListEmployee, int idToF
 	{
 		int i;
 		int len;
+		int id;
 		len = ll_len(pArrayListEmployee);
 		Employee* localEmployee;
 
 		for(i=0; i<len; i++)
 		{
 			localEmployee =  ll_get(pArrayListEmployee,i);
-			if(localEmployee->id == idToFind)
+			if (employee_getId(localEmployee,&id)==1)
 			{
+				if(id == idToFind)
+				{
 				retorno = i;
 				break;
+				}
 			}
+
 		}
 	}
 	return retorno;
@@ -467,6 +580,84 @@ int controller_showMenu ()
 	if (getNumero(&menu,textoMenu, textoError, 1, 10, 20)==0)
 	{
 		retorno = menu;
+	}
+
+	return retorno;
+}
+
+int controller_showMenuEdit ()
+{
+	int retorno = 0;
+	int menu;
+	char textoMenu [512];
+	char textoError [128];
+
+	strcpy(textoMenu, "\nElija que desea editar\n1.Editar Nombre\n2.Editar Horas Trabajadas\n3.Editar Sueldo\n");
+
+	strcpy(textoError, "Opcion no valida, por favor digite una opcion listada\n");
+
+	fflush(stdout);
+	fflush(stdin);
+
+	if (getNumero(&menu,textoMenu, textoError, 1, 3, 20)==0)
+		{
+			retorno = menu;
+		}
+
+	return retorno;
+}
+
+int controller_showMenuSort ()
+{
+	int retorno = 0;
+	int menu;
+	int menu2;
+	char textoMenuSort [512];
+	char textoError [128];
+	char textoMenuSort2 [512];
+
+	strcpy(textoMenuSort, "\nElija criterio a ordenar \n1.Ordenar por ID\n2.Ordenar por nombre\n");
+
+	strcpy(textoMenuSort2, "\nElija orden \n1.Ascendente\n2.Descendente\n");
+
+	strcpy(textoError, "Opcion no valida, por favor digite una opcion listada\n");
+
+	fflush(stdout);
+	fflush(stdin);
+
+	if (getNumero(&menu,textoMenuSort, textoError, 1, 2, 20)==0)
+	{
+		retorno = menu;
+	}
+
+	switch(menu)
+	{
+	case 1:
+		if (getNumero(&menu2,textoMenuSort2, textoError, 1, 2, 20)==0)
+				{
+					if (menu2 == 1)
+					{
+						retorno = 1;
+					}
+					else
+					{
+						retorno = 2;
+					}
+				}
+		break;
+	case 2:
+		if (getNumero(&menu2,textoMenuSort2, textoError, 1, 2, 20)==0)
+				{
+					if (menu2 == 1)
+					{
+						retorno = 3;
+					}
+					else
+					{
+					    retorno = 4;
+					}
+				}
+		break;
 	}
 
 	return retorno;

@@ -14,8 +14,8 @@ void employee_delete(Employee* this)
 {
     if(this!=NULL)
     {
-    		free(this);
-    	}
+    	free(this);
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,6 @@ Employee* employee_newParametros(char idStr[],char nombreStr[],char horasTrabaja
 			retornoEmployee = NULL;
 		}else{
 			retornoEmployee = localEmployee;
-
 		}
 	}
 
@@ -69,17 +68,30 @@ Employee* employee_newParametros(char idStr[],char nombreStr[],char horasTrabaja
 int setNewEmployee (Employee* employeeACargar, int id,char* nombre,int horasTrabajadas, int sueldo){
 
 	int retorno = 0;
-	int comprobacion = 0;
 
-	comprobacion += employee_setId(employeeACargar, id);
-	comprobacion += employee_setNombre(employeeACargar, nombre);
-	comprobacion += employee_setHorasTrabajadas(employeeACargar, horasTrabajadas);
-	comprobacion += employee_setSueldo(employeeACargar, sueldo);
-
-		if (comprobacion == 4)
+	if(employee_setId(employeeACargar, id)==1)
+	{
+		if(employee_setNombre(employeeACargar, nombre)==1)
 		{
-			retorno = 1;
+			if(employee_setHorasTrabajadas(employeeACargar, horasTrabajadas)==1)
+			{
+				if(employee_setSueldo(employeeACargar, sueldo)==1)
+				{
+					retorno = 1;
+				}else
+				{
+					printf("\nHubo un error al setear el sueldo\n");
+				}
+			}else
+			{
+				printf("\nHubo un error al setear las hrs. trabajadas\n");
+			}
+		}else
+		{
+			printf("\nHubo un error al setear el nombre\n");
 		}
+	}
+
 
 return retorno;
 }
@@ -218,10 +230,42 @@ int employee_getSueldo(Employee* this,int* sueldo){
 int employee_showEmpleado(Employee* this)
 {
 	int retorno = 1;
-	if (this != NULL){
-		printf(" %4d|| %13s|| %13d|| %10d||\n",  this->id, this->nombre, this->horasTrabajadas, this->sueldo);
-		retorno = 0;
+
+
+if (this != NULL)
+{
+	int id;
+	char nombre [20];
+	int horasTrabajadas;
+	int sueldo;
+
+	if(employee_getId(this, &id)==1)
+	{
+		if(employee_getNombre(this, nombre)==1)
+		{
+			if(employee_getHorasTrabajadas(this, &horasTrabajadas)==1)
+			{
+				if(employee_getSueldo(this, &sueldo)==1)
+				{
+					printf(" %4d|| %13s|| %13d|| %10d||\n",  id, nombre, horasTrabajadas,sueldo);
+					retorno = 0;
+				}else
+				{
+					printf("Hubo un problema al mostrar el sueldo");
+				}
+			}else
+			{
+				printf("Hubo un problema al mostrar las hrs trabajadas");
+			}
+		}else
+		{
+			printf("Hubo un problema al mostrar el nombre");
+		}
+	}else
+	{
+		printf("Hubo un problema al mostrar el ID");
 	}
+}
 
 	return retorno;
 }
@@ -238,10 +282,16 @@ int compareById (void* uno, void* dos){
 
 	Employee* empleadoDos = (Employee*) dos;
 
-	if (empleadoUno->id > empleadoDos->id)
+	int empleadoUnoId;
+	int empleadoDosId;
+
+	employee_getId(empleadoUno,&empleadoUnoId);
+	employee_getId(empleadoDos,&empleadoDosId);
+
+	if (empleadoUnoId > empleadoDosId)
 	{
 	retorno = 1;
-	}else if(empleadoUno->id < empleadoDos->id){
+	}else if(empleadoUnoId < empleadoDosId){
 	retorno = -1;
 	}
 
@@ -251,6 +301,29 @@ int compareById (void* uno, void* dos){
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+int compareByNombre (void* uno, void* dos){
+
+	int retorno=0;
+
+	Employee* empleadoUno = (Employee*) uno;
+	Employee* empleadoDos = (Employee*) dos;
+
+	char empleadoUnoNombre[20];
+	char empleadoDosNombre[20];
+
+	employee_getNombre(empleadoUno,empleadoUnoNombre);
+	employee_getNombre(empleadoDos,empleadoDosNombre);
+
+	if (strcmp(empleadoUnoNombre, empleadoDosNombre)>0)
+	{
+	retorno = 1;
+	}else if(strcmp(empleadoUnoNombre, empleadoDosNombre)<0)
+	{
+	retorno = -1;
+	}
+
+	return retorno;
+}
 
 void showEncabezado(){
 	printf("   ID||        Nombre||Hrs Trabajadas||     Sueldo||\n");
